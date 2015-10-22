@@ -4,38 +4,44 @@ installation: create new bookmark, copy and paste this code into bookmark link f
 using:
 1. open web page
 2. press bookmark with code
-3. simultaneously press and hold alt+Shift
+3. press and hold Shift
 4. move pointer over desirable links(they should get red frame)
-5. release buttons from step 3.
+5. to open selected all selected links at once ckick any of red framed links
 
 * assuming that popups are allowed for sites you work with in browser settings
 ************************************************************************************/
 
 var a = document.querySelectorAll("a[href]");
-var b = document.getElementsByTagName("body");
 
 var links = [];
 
 function ahendler(event) {
-    if (event.shiftKey && event.altKey) {
-        links.push(this);
-        this.originalStyle = this.style.cssText;
-        this.style.border = "1px solid red";
-        this.removeEventListener("mouseover", ahendler, true);
+    if (event.shiftKey) {
+        var elIndex = links.indexOf(this);
+        if (elIndex === -1) {
+            links.push(this);
+            this.originalStyle = this.style.cssText;
+            this.style.border = "1px solid red";
+            this.addEventListener("click", opener, false);
+        } else {
+            links.splice(elIndex, 1);
+            this.style = this.originalStyle;
+            this.removeEventListener("click", opener, false);
+        }
     }
 }
 
 function opener(event) {
-    if (event.keyCode === 16 && event.altKey) {
-        for (var i = 0, l = links.length; i < l; i++) {
-            links[i].style = links[i].originalStyle;
-            window.open(links[i].href, '_blank');
-        }
+    event.preventDefault();
+    for (var i = 0, l = links.length; i < l; i++) {
+        links[i].style = links[i].originalStyle;
+        links[i].removeEventListener("click", ahendler, true);
+        window.open(links[i].href, '_blank');
     }
-    //this.removeEventListener("keyup",opener,true);
+    links = [];
+    return false;
 }
 
 for (var i = 0, l = a.length; i < l; i++) {
     a[i].addEventListener("mouseover", ahendler, true)
 }
-b[0].addEventListener("keyup", opener, true);
