@@ -11,37 +11,41 @@ using:
 * assuming that popups are allowed for sites you work with in browser settings
 ************************************************************************************/
 
-var a = document.querySelectorAll("a[href]");
 
-var links = [];
 
-function ahendler(event) {
-    if (event.shiftKey) {
-        var elIndex = links.indexOf(this);
-        if (elIndex === -1) {
-            links.push(this);
-            this.originalStyle = this.style.cssText;
-            this.style.border = "1px solid red";
-            this.addEventListener("click", opener, false);
-        } else {
-            links.splice(elIndex, 1);
-            this.style = this.originalStyle;
-            this.removeEventListener("click", opener, false);
+javascript: (function() {
+    var a = document.querySelectorAll("a[href]");
+
+    var links = [];
+
+    function ahendler(event) {
+        if (event.shiftKey) {
+            var elIndex = links.indexOf(this);
+            if (elIndex === -1) {
+                links.push(this);
+                this.originalStyle = this.style.cssText;
+                this.style.border = "1px solid red";
+                this.addEventListener("click", opener, false);
+            } else {
+                links.splice(elIndex, 1);
+                this.style.cssText = this.originalStyle;
+                this.removeEventListener("click", opener, false);
+            }
         }
     }
-}
 
-function opener(event) {
-    event.preventDefault();
-    for (var i = 0, l = links.length; i < l; i++) {
-        links[i].style = links[i].originalStyle;
-        links[i].removeEventListener("click", ahendler, true);
-        window.open(links[i].href, '_blank');
+    function opener(event) {
+        event.preventDefault();
+        for (var i = 0, l = links.length; i < l; i++) {
+            links[i].style.cssText = links[i].originalStyle;
+            links[i].removeEventListener("click", opener, false);
+            window.open(links[i].href, '_blank');
+        }
+        links = [];
+        return false;
     }
-    links = [];
-    return false;
-}
 
-for (var i = 0, l = a.length; i < l; i++) {
-    a[i].addEventListener("mouseover", ahendler, true)
-}
+    for (var i = 0, l = a.length; i < l; i++) {
+        a[i].addEventListener("mouseover", ahendler, true)
+    }
+})();
