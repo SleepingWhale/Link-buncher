@@ -1,6 +1,8 @@
 # Link-buncher
 Bookmark which allows to open multiple links at once.*
+
 installation: create new bookmark, copy and paste this code into bookmark link field.
+
 using:
 
 1. open web page
