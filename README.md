@@ -12,4 +12,4 @@ using:
 5. release Shift
 6. to open all selected links at once ckick any of red framed links
 
-* assuming that popups are allowed for sites you work with in browser settings
+*- assuming that popups are allowed for sites you work with in browser settings
