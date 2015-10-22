@@ -1,7 +1,7 @@
 # Link-buncher
 Bookmark which allows to open multiple links at once.*
 
-installation: create new bookmark, copy and paste this code into bookmark link field.
+installation: create new bookmark, copy and paste code from bookmark.js into bookmark link field.
 
 using:
 
