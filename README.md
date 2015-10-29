@@ -10,6 +10,6 @@ using:
 3. press and hold Shift
 4. move pointer over desirable links(they should get red frame)
 5. release Shift
-6. to open all selected links at once ckick any of red framed links
+6. to open all selected links at once click any of red framed links
 
 *- assuming that popups are allowed for sites you work with in browser settings
