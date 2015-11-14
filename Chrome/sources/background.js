@@ -1,4 +1,4 @@
-var bunchEnabled = false;
+var bunchEnabled;
 
 function counter(n, id) {
     chrome.browserAction.setBadgeText({
@@ -6,20 +6,22 @@ function counter(n, id) {
         tabId: id
     })
 }
+
+function execCode(obj, bin, num, tabId) {
+    chrome.tabs.executeScript(obj);
+    bunchEnabled = bin;
+    counter(num, tabId);
+}
 chrome.browserAction.onClicked.addListener(
     function(tab) {
+        if (bunchEnabled === undefined) {
+            execCode({file: "content_script.js"}, true, "0", tab.id);
+            return;
+        }
         if (!(bunchEnabled)) {
-            chrome.tabs.executeScript({
-                file: "content_script.js"
-            });
-            counter("0", tab.id);
-            bunchEnabled = true;
+            execCode({code: "bunchEnabled = true;"}, true, "0", tab.id);
         } else {
-            chrome.tabs.executeScript({
-                code: "bunchEnabled = false;"
-            });
-            bunchEnabled = false;
-            counter("", tab.id);
+            execCode({code: "bunchEnabled = false;"}, false, "", tab.id);
         }
     });
 
