@@ -1,4 +1,6 @@
-function counter(n,id) {
+var bunchEnabled = false;
+
+function counter(n, id) {
     chrome.browserAction.setBadgeText({
         text: n,
         tabId: id
@@ -6,10 +8,19 @@ function counter(n,id) {
 }
 chrome.browserAction.onClicked.addListener(
     function(tab) {
-        chrome.tabs.executeScript({
-            file: "content_script.js"
-        });
-        counter("0");
+        if (!(bunchEnabled)) {
+            chrome.tabs.executeScript({
+                file: "content_script.js"
+            });
+            counter("0", tab.id);
+            bunchEnabled = true;
+        } else {
+            chrome.tabs.executeScript({
+                code: "bunchEnabled = false;"
+            });
+            bunchEnabled = false;
+            counter("", tab.id);
+        }
     });
 
 chrome.runtime.onMessage.addListener(
@@ -21,9 +32,9 @@ chrome.runtime.onMessage.addListener(
                     active: false
                 });
             }
-            counter("0",sender.tab.id);
+            counter("0", sender.tab.id);
         }
         if (request.hasOwnProperty("counter")) {
-            counter(request.counter.toString(),sender.tab.id);
+            counter(request.counter.toString(), sender.tab.id);
         }
     });
