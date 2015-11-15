@@ -16,7 +16,7 @@ installation: create new bookmark, copy and paste code from Link-buncher/Bookmar
 using:
 
 1. open web page
-2. click etension icon or bookmark
+2. click extension icon or bookmark
 3. press and hold Shift
 4. move pointer over desirable links(they should get red frame)
 5. release Shift
