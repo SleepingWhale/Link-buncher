@@ -2,12 +2,14 @@
 
 Allows to open multiple links at once.
 Available as chrome extension and bookmark.
-
-Chrome extension isn't published yet.
-Install manually by drag-and-dropping file Link-buncher/Chrome/Link-buncher.crx to your extension page(chrome://extensions/).
-
-
-Also available as a bookmark.*
+<ul>
+  <li>
+    <a href="https://chrome.google.com/webstore/detail/link-buncher/bbmlifefgoaaclfbpoomgpapopblpflc?hl=en" target="_blank">Chrome extension.</a>
+  </li>
+  <li>
+    <a href="https://github.com/SleepingWhale/Link-buncher/tree/master/Bookmark" target="_blank">Bookmark.*</a>
+  </li>
+</ul>
 
 installation: create new bookmark, copy and paste code from Link-buncher/Bookmark/compressed.js into bookmark link field.
 
